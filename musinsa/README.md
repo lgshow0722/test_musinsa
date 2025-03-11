@@ -29,7 +29,24 @@
         
 * 개략적 설계
   * 해당 단계는 설계 범위에 대한 내용을 구현하고 구현 시 발생하는 이슈에 대해 대응합니다.
+  * 응답용 공통 클래스를 생성한다.
+    * 클래스명 : ApiResponse (api > response > ApiResponse)
+    * status / message / data로 구성한다.
+      * status : HttpStatus 코드를 리턴
+      * message : 출력 메세지
+      * data : 제너릭 형태로 리턴되는 데이터를 대응함
+  * API 성공/실패에 대한 공통 유틸을 생성한다.
+    * 클래스명 : ResponseUtil (api > response > ResponseUtil)
+    * 케이스 : 성공 / 성공+데이터 / 성공+메시지 / 실패
+  * 공통 Exception Handler 유틸을 생성한다.
+    * 클래스명 : ExceptionHandlerUtil (api > response > ExceptionHandlerUtil)
+    * ControllerAdvice 어노테이션과 ExceptionHandler 어노테이션을 사용하여 전역 Exception을 대응한다.
+    * 본 과제에서는 400 / 404 / 500 에러를 대응한다.
+      * 400 : Bad_Request / 밸리데이션에 의한 오류
+      * 404 : Not_Found / 페이지 없음
+      * 500 : Internal_Server_Error / 시스템 오류
   * 헬스 체크 API 생성
+    * API 명 : /health (Request Type : GET)
   
 * 상세 설계
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
