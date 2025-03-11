@@ -23,4 +23,6 @@ public class Merchandise {
 
     @Column(nullable = false)
     private Long price;
+
+
 }
