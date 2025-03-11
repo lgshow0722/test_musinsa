@@ -47,7 +47,10 @@
       * 500 : Internal_Server_Error / 시스템 오류
   * 헬스 체크 API 생성
     * API 명 : /health (Request Type : GET)
-  
+  * application.yml 세팅
+    * JPA 설정과 H2 데이터소스 설정
+    * 포트 : 8080 (기본 포트)
+
 * 상세 설계
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
   * request Body JSON의 예시는 resources/static 에 작성한다.
