@@ -54,6 +54,7 @@
 * 상세 설계
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
   * request Body JSON의 예시는 resources/static 에 작성한다.
+  * favicon.ico의 경우 configuration 설정을 통해 로그에서 제거 할 수 있으나, 다른 목적이 필요하지 않아 무시함.
   
 * 추가 고려 사항
   * 각 API가 작동하는 프론트엔드 페이지 작성
