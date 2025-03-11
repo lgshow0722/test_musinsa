@@ -12,7 +12,7 @@ public class ResponseUtil {
 
     // 성공 응답 생성 (데이터만)
     public static <T> ResponseEntity<ApiResponse<T>> successWithData(T data) {
-        return ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "Success", data));
+        return ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), null, data));
     }
 
     // 성공 응답 (데이터 없이 메시지만)

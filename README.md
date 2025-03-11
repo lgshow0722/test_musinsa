@@ -11,6 +11,7 @@
   * 해당 단계는 개략적으로 프로젝트에 대한 구상을 하고 프로젝트 구조에 대한 설계를 합니다.
     *  디렉토리 구조
       * api : 컨트롤러 및 공통 response 관련
+      * service : 서비스 레이어
       * repository : jpa, entity 설정
       * dto : json request/response 객체
       * validation : dto의 유효성 검사
@@ -56,7 +57,25 @@
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
   * request Body JSON의 예시는 resources/static 에 작성한다.
   * favicon.ico의 경우 configuration 설정을 통해 로그에서 제거 할 수 있으나, 다른 목적이 필요하지 않아 무시함.
-  
+  * API 명세 (기본주소 : /project)
+    * 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
+      * API : /cate/lowest-price
+      * Request Type : GET
+      * Parameter : X
+      * Return : CategoryBrandPriceDto
+      * 부가설명
+        * 카테고리 별로 최저가를 조회하기 위해 subQuery가 포함된 nativeQuery를 사용함. 전체 데이터를 가져오거나, group by를 할 경우, 성능 상 안좋을 수 있음
+        * 카테고리 내 여러 브랜드의 최저가가 같을 경우 최근에 등록된 상품을 출력함(id desc)
+    * 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API
+    * 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API
+    * 브랜드 추가 API
+    * 브랜드 수정 API
+    * 브랜드 삭제 API
+    * 상품 추가 API
+    * 상품 수정 API
+    * 상품 삭제 API
+  * 브랜드 및 상품을 추가 / 업데이트 / 삭제하는 API : 이 구문은 단일 API로 임의 병합하는 것보다 명시적으로 API를 구분하는 것이 유리하다고 판단하여 6개의 API로 해석함.
+
 * 추가 고려 사항
   * 각 API가 작동하는 프론트엔드 페이지 작성
     * 단일 프로젝트 임을 감안하여, Thymeleaf 라이브러리 고려
