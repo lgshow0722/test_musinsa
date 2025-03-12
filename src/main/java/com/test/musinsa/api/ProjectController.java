@@ -4,7 +4,8 @@ import com.test.musinsa.api.response.ApiResponse;
 import com.test.musinsa.api.response.ResponseUtil;
 import com.test.musinsa.dto.Question1Dto;
 import com.test.musinsa.dto.Question2Dto;
-import com.test.musinsa.service.ProjectService;
+import com.test.musinsa.service.logic.BrandLowestPriceService;
+import com.test.musinsa.service.logic.CategoryLowestPriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectService projectService;
+    private final CategoryLowestPriceService categoryLowestPriceService;
+    private final BrandLowestPriceService brandLowestPriceService;
 
     // 1. 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
     @GetMapping("/cate/lowest-price")
     public ResponseEntity<ApiResponse<Question1Dto>> cateLowestPrice() {
 
-        Question1Dto result = projectService.getCategoryLowestPrice();
+        Question1Dto result = categoryLowestPriceService.executeService();
 
         return ResponseUtil.successWithData(result);
     }
@@ -32,7 +34,7 @@ public class ProjectController {
     @GetMapping("/brand/lowest-price")
     public ResponseEntity<ApiResponse<Question2Dto>> brandLowestPrice() {
 
-        Question2Dto result = projectService.getBrandLowestPrice();
+        Question2Dto result = brandLowestPriceService.executeService();
 
         return ResponseUtil.successWithData(result);
     }

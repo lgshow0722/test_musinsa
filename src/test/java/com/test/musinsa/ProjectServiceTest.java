@@ -8,7 +8,6 @@ import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.repository.entity.Category;
 import com.test.musinsa.repository.entity.Merchandise;
 import com.test.musinsa.repository.entity.MerchandiseRepository;
-import com.test.musinsa.service.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

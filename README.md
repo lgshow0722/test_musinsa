@@ -55,6 +55,7 @@
 
 * 상세 설계
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
+  * 서비스를 추상화하여 로직을 간소하게 하게 책임을 분리합니다. (api > service > AbstractService) 
   * API 명세 (기본주소 : /project)
     * 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
       * API : /cate/lowest-price
