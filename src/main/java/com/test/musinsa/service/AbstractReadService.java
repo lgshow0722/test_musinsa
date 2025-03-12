@@ -4,8 +4,8 @@ import com.test.musinsa.api.response.ExceptionHandlerUtil;
 
 import java.text.NumberFormat;
 
-// 공통 추상 서비스 클래스
-public abstract class AbstractService<T> {
+// 공통 추상 서비스 클래스(조회용)
+public abstract class AbstractReadService<T> {
 
     // 숫자 포매터
     protected final NumberFormat format = NumberFormat.getNumberInstance();

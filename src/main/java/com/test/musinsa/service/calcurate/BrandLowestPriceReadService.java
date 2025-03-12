@@ -1,10 +1,10 @@
-package com.test.musinsa.service.logic;
+package com.test.musinsa.service.calcurate;
 
 import com.test.musinsa.dto.MerchandiseDto;
 import com.test.musinsa.dto.Question2Dto;
 import com.test.musinsa.repository.CategoryRepository;
 import com.test.musinsa.repository.entity.MerchandiseRepository;
-import com.test.musinsa.service.AbstractService;
+import com.test.musinsa.service.AbstractReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class BrandLowestPriceService extends AbstractService<Question2Dto> {
+public class BrandLowestPriceReadService extends AbstractReadService<Question2Dto> {
 
     private final MerchandiseRepository merchandiseRepository;
     private final CategoryRepository categoryRepository;

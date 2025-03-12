@@ -9,9 +9,9 @@ import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.repository.entity.Category;
 import com.test.musinsa.repository.entity.Merchandise;
 import com.test.musinsa.repository.entity.MerchandiseRepository;
-import com.test.musinsa.service.logic.BrandLowestPriceService;
-import com.test.musinsa.service.logic.CategoryBrandPriceService;
-import com.test.musinsa.service.logic.CategoryLowestPriceService;
+import com.test.musinsa.service.calcurate.BrandLowestPriceReadService;
+import com.test.musinsa.service.calcurate.CategoryBrandPriceReadService;
+import com.test.musinsa.service.calcurate.CategoryLowestPriceReadService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,13 +32,13 @@ public class ProjectServiceTest {
     private MerchandiseRepository merchandiseRepository;
 
     @InjectMocks
-    private CategoryLowestPriceService categoryLowestPriceService;
+    private CategoryLowestPriceReadService categoryLowestPriceService;
 
     @InjectMocks
-    private BrandLowestPriceService brandLowestPriceService;
+    private BrandLowestPriceReadService brandLowestPriceService;
 
     @InjectMocks
-    private CategoryBrandPriceService categoryBrandPriceService;
+    private CategoryBrandPriceReadService categoryBrandPriceService;
 
     private final NumberFormat format = NumberFormat.getNumberInstance();
 

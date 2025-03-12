@@ -55,7 +55,10 @@
 
 * 상세 설계
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
-  * 서비스를 추상화하여 로직을 간소하게 하게 책임을 분리합니다. (api > service > AbstractService) 
+  * 서비스를 추상화하여 로직을 간소하게 하게 책임을 분리합니다. 
+    * 조회용 추상클래스 : api > service > AbstractReadService
+    * 쓰기용 추상클래스 : api > service > AbstractWriteService
+  * 추가/수정/삭제 API의 경우 Spring Modulith 개념을 사용하여 확장 가능한 구조를 예측하여 대비함
   * API 명세 (기본주소 : /project)
     * 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
       * API : /cate/lowest-price
