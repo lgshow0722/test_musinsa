@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface MerchandiseRepository extends JpaRepository<Merchandise, Long> {
 
+    // 카테고리 별 최저가 상품 조회
     @Query(value = """
         SELECT m.* FROM merchandise m
         WHERE m.id = (
@@ -24,4 +25,9 @@ public interface MerchandiseRepository extends JpaRepository<Merchandise, Long> 
     """, nativeQuery = true)
     List<Merchandise> findLowestPricePerCategory();
 
+    // 카테고리별 브랜드 최저가 상품 조회
+    @Query("SELECT m.category.name, m.brand.name, MIN(m.price) as price " +
+        "FROM Merchandise m " +
+        "GROUP BY m.category.id, m.brand.id")
+    List<Object[]> findLowestPricePerCategoryByBrand();
 }

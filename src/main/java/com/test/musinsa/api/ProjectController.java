@@ -2,7 +2,8 @@ package com.test.musinsa.api;
 
 import com.test.musinsa.api.response.ApiResponse;
 import com.test.musinsa.api.response.ResponseUtil;
-import com.test.musinsa.dto.CategoryBrandPriceDto;
+import com.test.musinsa.dto.Question1Dto;
+import com.test.musinsa.dto.Question2Dto;
 import com.test.musinsa.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,21 @@ public class ProjectController {
 
     // 1. 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
     @GetMapping("/cate/lowest-price")
-    public ResponseEntity<ApiResponse<CategoryBrandPriceDto>> cateLowestPrice() {
+    public ResponseEntity<ApiResponse<Question1Dto>> cateLowestPrice() {
 
-        CategoryBrandPriceDto result = projectService.getCategoryBrandLowestPrice();
+        Question1Dto result = projectService.getCategoryLowestPrice();
 
         return ResponseUtil.successWithData(result);
     }
 
     // 2. 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API
+    @GetMapping("/brand/lowest-price")
+    public ResponseEntity<ApiResponse<Question2Dto>> brandLowestPrice() {
+
+        Question2Dto result = projectService.getBrandLowestPrice();
+
+        return ResponseUtil.successWithData(result);
+    }
 
     // 3. 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API
 

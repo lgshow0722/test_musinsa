@@ -62,11 +62,18 @@
       * API : /cate/lowest-price
       * Request Type : GET
       * Parameter : X
-      * Return : CategoryBrandPriceDto
+      * Return : Question1Dto
       * 부가설명
         * 카테고리 별로 최저가를 조회하기 위해 subQuery가 포함된 nativeQuery를 사용함. 전체 데이터를 가져오거나, group by를 할 경우, 성능 상 안좋을 수 있음
         * 카테고리 내 여러 브랜드의 최저가가 같을 경우 최근에 등록된 상품을 출력함(id desc)
     * 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API
+      * API : /brand/lowest-price
+      * Request Type : GET
+      * Parameter : X
+      * Return : Question2Dto
+      * 부가설명
+        * 특정 브랜드가 특정 카테고리 상품이 없을 가능성을 고려하여, 브랜드+카테고리+최저가상품으로 그룹핑한 결과를 카테고리 전체 갯수와 비교하여 싱크 확인 후 모든 카테고리에 상품이 존재하는 브랜드만 만족처리함
+        * 데이터의 중복 조회를 방지하고 최초 DB 정보를 재활용하여 cost를 감소하고자 함
     * 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API
     * 브랜드 추가 API
     * 브랜드 수정 API
@@ -75,6 +82,7 @@
     * 상품 수정 API
     * 상품 삭제 API
   * 브랜드 및 상품을 추가 / 업데이트 / 삭제하는 API : 이 구문은 단일 API로 임의 병합하는 것보다 명시적으로 API를 구분하는 것이 유리하다고 판단하여 6개의 API로 해석함.
+  * 출력되는 Dto의 네이밍은 크게 의미를 부여하지 않음
 
 * 추가 고려 사항
   * 각 API가 작동하는 프론트엔드 페이지 작성

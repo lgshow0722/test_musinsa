@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class CategoryBrandPriceDto {
+public class Question1Dto {
 
     @JsonProperty("카테고리별 데이터")
     private List<MerchandiseDto> merchandiseDtoList;
