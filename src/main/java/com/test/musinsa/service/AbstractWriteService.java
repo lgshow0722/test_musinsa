@@ -3,7 +3,7 @@ package com.test.musinsa.service;
 import jakarta.transaction.Transactional;
 
 // 공통 추상 서비스 클래스(쓰기용)
-public class AbstractWriteService<T, D> {
+public abstract class AbstractWriteService<T, D> {
 
     /**
      * 등록(Create) 메서드
@@ -13,7 +13,15 @@ public class AbstractWriteService<T, D> {
      */
     @Transactional
     public T create(D dto) {
-        return null;
+        // DTO 검증
+        validateForCreate(dto);
+
+        // DTO -> 엔티티 변환
+        T entity = convertToEntity(dto);
+
+        // 엔티티 저장
+        return saveEntity(entity);
+
     }
 
     /**
@@ -37,4 +45,26 @@ public class AbstractWriteService<T, D> {
     public void delete(int id) {
 
     }
+
+    /**
+     * 데이터 등록 시의 검증 로직
+     */
+    protected void validateForCreate(D dto) {
+        // 기본 구현 없음. 필요할 경우 하위 클래스에서 추가 구현.
+    }
+
+    /**
+     * DTO 데이터를 기반으로 엔티티를 생성
+     * 하위 클래스에서 구현 필요
+     */
+    protected abstract T convertToEntity(D dto);
+
+    /**
+     * 엔티티 저장 로직을 구현
+     * 하위 클래스에서 구현 필요
+     */
+    protected abstract T saveEntity(T entity);
+
+
+
 }

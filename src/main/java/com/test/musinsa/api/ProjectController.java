@@ -2,13 +2,17 @@ package com.test.musinsa.api;
 
 import com.test.musinsa.api.response.ApiResponse;
 import com.test.musinsa.api.response.ResponseUtil;
+import com.test.musinsa.dto.BrandDto;
 import com.test.musinsa.dto.Question1Dto;
 import com.test.musinsa.dto.Question2Dto;
 import com.test.musinsa.dto.Question3Dto;
+import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.service.calcurate.CategoryBrandPriceReadService;
 import com.test.musinsa.service.calcurate.BrandLowestPriceReadService;
 import com.test.musinsa.service.calcurate.CategoryLowestPriceReadService;
+import com.test.musinsa.service.transaction.BrandTransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,7 @@ public class ProjectController {
     private final CategoryLowestPriceReadService categoryLowestPriceService;
     private final BrandLowestPriceReadService brandLowestPriceService;
     private final CategoryBrandPriceReadService categoryBrandPriceService;
+    private final BrandTransactionService brandTransactionService;
 
     // 1. 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
     @GetMapping("/cate/lowest-price")
@@ -52,7 +57,14 @@ public class ProjectController {
     // 4. 브랜드 추가 API
     @PostMapping("/brand/add")
     public ResponseEntity<ApiResponse<Void>> addBrand(@RequestParam String brandName) {
-        return null;
+
+        Brand brand = brandTransactionService.create(new BrandDto(brandName));
+
+        if(brand != null) {
+            return ResponseUtil.success();
+        } else {
+            return ResponseUtil.error(HttpStatus.BAD_REQUEST,"브랜드 추가에 실패했습니다.");
+        }
     }
 
     // 5. 브랜드 수정 API

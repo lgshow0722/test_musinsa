@@ -14,7 +14,7 @@
       * service : 서비스 레이어
       * repository : jpa, entity 설정
       * dto : json request/response 객체
-      * validation : dto의 유효성 검사
+      * event : 별도 이벤트 수신
     * DB
       * H2 Embedded DB를 활용
       * 해당 과제에는 3개의 테이블을 활용하고자 한다.
