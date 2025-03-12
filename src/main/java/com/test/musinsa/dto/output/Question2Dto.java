@@ -1,6 +1,7 @@
-package com.test.musinsa.dto;
+package com.test.musinsa.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.test.musinsa.dto.base.MerchandiseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

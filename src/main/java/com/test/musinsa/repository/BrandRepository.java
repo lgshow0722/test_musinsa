@@ -3,6 +3,6 @@ package com.test.musinsa.repository;
 import com.test.musinsa.repository.entity.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BrandRepository extends JpaRepository<Brand, Long> {
+public interface BrandRepository extends JpaRepository<Brand, Integer> {
     boolean existsByName(String brandName);
 }

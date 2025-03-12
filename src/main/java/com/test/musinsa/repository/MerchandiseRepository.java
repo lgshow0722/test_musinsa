@@ -1,5 +1,7 @@
-package com.test.musinsa.repository.entity;
+package com.test.musinsa.repository;
 
+import com.test.musinsa.repository.entity.Category;
+import com.test.musinsa.repository.entity.Merchandise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

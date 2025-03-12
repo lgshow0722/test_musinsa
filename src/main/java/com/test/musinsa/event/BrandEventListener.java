@@ -10,10 +10,18 @@ import org.springframework.stereotype.Component;
 public class BrandEventListener {
 
     @EventListener
-    public void onBrandAdded(Brand event) {
-        log.info("브랜드 추가 이벤트 수신: 브랜드 ID = {}, 브랜드 이름 = {}",
-                event.getId(), event.getName());
-        // 다른 비즈니스 로직을 처리하거나 추가 작업
+    public void onBrandAdded(BrandEvent event) {
+        log.info("브랜드 이벤트 수신: 브랜드 ID = {}, 브랜드 이름 = {}, 액션 유형 = {}",
+                event.getBrand().getId(), event.getBrand().getName(), event.getActionType());
+        switch (event.getActionType()) {
+            case CREATE -> {
+                // 등록 관련 이벤트
+                log.info("브랜드 등록 이벤트 발생!");
+            }
+            case UPDATE -> {
+                log.info("브랜드 수정 이벤트 발생!");
+            }
+        }
     }
 
 }

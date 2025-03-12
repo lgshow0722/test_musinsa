@@ -84,6 +84,12 @@
       * 설명
         * JPA의 기본 메서드 중 findTop을 활용하여 카테고리별 최저가/최고가 상품을 각각 조회함
     * 브랜드 추가 API
+      * API : /brand/add
+      * Request Type : POST
+      * Parameter : brandName (String)
+      * Return : 성공 or 실패 (ResponseUtil.success() or ResponseUtil.error())
+      * 설명
+        * 중복된 브랜드명의 경우 등록할 수 없음
     * 브랜드 수정 API
     * 브랜드 삭제 API
     * 상품 추가 API

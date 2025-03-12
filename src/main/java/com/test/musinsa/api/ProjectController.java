@@ -2,10 +2,11 @@ package com.test.musinsa.api;
 
 import com.test.musinsa.api.response.ApiResponse;
 import com.test.musinsa.api.response.ResponseUtil;
-import com.test.musinsa.dto.BrandDto;
-import com.test.musinsa.dto.Question1Dto;
-import com.test.musinsa.dto.Question2Dto;
-import com.test.musinsa.dto.Question3Dto;
+import com.test.musinsa.dto.base.BrandDto;
+import com.test.musinsa.dto.input.BrandUpdateDto;
+import com.test.musinsa.dto.output.Question1Dto;
+import com.test.musinsa.dto.output.Question2Dto;
+import com.test.musinsa.dto.output.Question3Dto;
 import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.service.calcurate.CategoryBrandPriceReadService;
 import com.test.musinsa.service.calcurate.BrandLowestPriceReadService;
@@ -68,6 +69,17 @@ public class ProjectController {
     }
 
     // 5. 브랜드 수정 API
+    @PutMapping("/brand/mod")
+    public ResponseEntity<ApiResponse<Void>> modBrand(@RequestBody BrandUpdateDto dto) {
+
+        Brand brand = brandTransactionService.update(dto.getId(), new BrandDto(dto.getBrandName()));
+
+        if(brand != null) {
+            return ResponseUtil.success();
+        } else {
+            return ResponseUtil.error(HttpStatus.BAD_REQUEST,"브랜드 수정에 실패했습니다.");
+        }
+    }
 
     // 6. 브랜드 삭제 API
 

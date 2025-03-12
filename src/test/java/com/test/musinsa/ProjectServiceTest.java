@@ -1,14 +1,14 @@
 package com.test.musinsa;
 
-import com.test.musinsa.dto.MerchandiseDto;
-import com.test.musinsa.dto.Question1Dto;
-import com.test.musinsa.dto.Question2Dto;
-import com.test.musinsa.dto.Question3Dto;
+import com.test.musinsa.dto.base.MerchandiseDto;
+import com.test.musinsa.dto.output.Question1Dto;
+import com.test.musinsa.dto.output.Question2Dto;
+import com.test.musinsa.dto.output.Question3Dto;
 import com.test.musinsa.repository.CategoryRepository;
 import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.repository.entity.Category;
 import com.test.musinsa.repository.entity.Merchandise;
-import com.test.musinsa.repository.entity.MerchandiseRepository;
+import com.test.musinsa.repository.MerchandiseRepository;
 import com.test.musinsa.service.calcurate.BrandLowestPriceReadService;
 import com.test.musinsa.service.calcurate.CategoryBrandPriceReadService;
 import com.test.musinsa.service.calcurate.CategoryLowestPriceReadService;

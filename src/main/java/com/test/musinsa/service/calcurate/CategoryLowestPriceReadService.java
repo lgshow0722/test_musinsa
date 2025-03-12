@@ -1,9 +1,9 @@
 package com.test.musinsa.service.calcurate;
 
-import com.test.musinsa.dto.MerchandiseDto;
-import com.test.musinsa.dto.Question1Dto;
+import com.test.musinsa.dto.base.MerchandiseDto;
+import com.test.musinsa.dto.output.Question1Dto;
 import com.test.musinsa.repository.entity.Merchandise;
-import com.test.musinsa.repository.entity.MerchandiseRepository;
+import com.test.musinsa.repository.MerchandiseRepository;
 import com.test.musinsa.service.AbstractReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
