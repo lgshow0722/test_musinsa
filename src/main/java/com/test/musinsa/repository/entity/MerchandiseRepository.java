@@ -30,4 +30,12 @@ public interface MerchandiseRepository extends JpaRepository<Merchandise, Long> 
         "FROM Merchandise m " +
         "GROUP BY m.category.id, m.brand.id")
     List<Object[]> findLowestPricePerCategoryByBrand();
+
+    Merchandise findTopByCategoryOrderByIdDesc(Category category);
+
+    Merchandise findTopByCategory_NameOrderByIdDesc(String categoryName);
+
+    Merchandise findTopByCategory_NameOrderByPriceDesc(String categoryName);
+
+    Merchandise findTopByCategory_NameOrderByPriceAsc(String categoryName);
 }

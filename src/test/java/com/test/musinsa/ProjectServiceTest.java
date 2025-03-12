@@ -3,11 +3,15 @@ package com.test.musinsa;
 import com.test.musinsa.dto.MerchandiseDto;
 import com.test.musinsa.dto.Question1Dto;
 import com.test.musinsa.dto.Question2Dto;
+import com.test.musinsa.dto.Question3Dto;
 import com.test.musinsa.repository.CategoryRepository;
 import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.repository.entity.Category;
 import com.test.musinsa.repository.entity.Merchandise;
 import com.test.musinsa.repository.entity.MerchandiseRepository;
+import com.test.musinsa.service.logic.BrandLowestPriceService;
+import com.test.musinsa.service.logic.CategoryBrandPriceService;
+import com.test.musinsa.service.logic.CategoryLowestPriceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,11 +28,19 @@ import static org.mockito.Mockito.*;
 
 public class ProjectServiceTest {
 
-    @InjectMocks
-    private ProjectService projectService;
-
     @Mock
     private MerchandiseRepository merchandiseRepository;
+
+    @InjectMocks
+    private CategoryLowestPriceService categoryLowestPriceService;
+
+    @InjectMocks
+    private BrandLowestPriceService brandLowestPriceService;
+
+    @InjectMocks
+    private CategoryBrandPriceService categoryBrandPriceService;
+
+    private final NumberFormat format = NumberFormat.getNumberInstance();
 
     @Mock
     private CategoryRepository categoryRepository;
@@ -41,32 +54,15 @@ public class ProjectServiceTest {
     void testCategoryBrandLowestPrice() {
 
         // Given
-        Category category1 = new Category();
-        category1.setName("Category1");
-        Category category2 = new Category();
-        category2.setName("Category2");
-
-        Brand brand1 = new Brand();
-        brand1.setName("Brand1");
-        Brand brand2 = new Brand();
-        brand2.setName("Brand2");
-
-        Merchandise merchandise1 = new Merchandise();
-        merchandise1.setCategory(category1);
-        merchandise1.setBrand(brand1);
-        merchandise1.setPrice(10000L);
-
-        Merchandise merchandise2 = new Merchandise();
-        merchandise2.setCategory(category2);
-        merchandise2.setBrand(brand2);
-        merchandise2.setPrice(20000L);
+        Merchandise merchandise1 = createMerchandise("Category1", "Brand1", 10000L);
+        Merchandise merchandise2 = createMerchandise("Category2", "Brand2", 20000L);
 
         List<Merchandise> mockMerchandises = Arrays.asList(merchandise1, merchandise2);
 
         when(merchandiseRepository.findLowestPricePerCategory()).thenReturn(mockMerchandises);
 
         // When
-        Question1Dto result = projectService.getCategoryLowestPrice();
+        Question1Dto result = categoryLowestPriceService.executeService();
 
         // Then
         assertNotNull(result, "null이 아니어야 합니다");
@@ -102,7 +98,7 @@ public class ProjectServiceTest {
                 .thenReturn(mockCategories);
 
         // When: 테스트 대상 메서드 호출
-        Question2Dto result = projectService.getBrandLowestPrice();
+        Question2Dto result = brandLowestPriceService.executeService();
 
         // Then: 반환 결과 검증
         assertNotNull(result);
@@ -115,4 +111,56 @@ public class ProjectServiceTest {
         assertEquals("Category 2", merchandiseDtoList.get(1).getCategoryName());
 
     }
+
+    @Test
+    void testCategoryBrandPrice() {
+        // Given
+        String categoryName = "상의";
+        Merchandise minPriceMerchandise = createMerchandise(categoryName,"BrandA",10000L);
+        Merchandise maxPriceMerchandise = createMerchandise(categoryName,"BrandB",20000L);
+
+        when(merchandiseRepository.findTopByCategory_NameOrderByPriceAsc(categoryName))
+                .thenReturn(minPriceMerchandise);
+        when(merchandiseRepository.findTopByCategory_NameOrderByPriceDesc(categoryName))
+                .thenReturn(maxPriceMerchandise);
+
+        // When
+        Question3Dto result = categoryBrandPriceService.executeService(categoryName);
+
+        // Then
+        // 최저가 상품 검증
+        assertEquals(categoryName, result.getCategoryName());
+        assertEquals(1, result.getLowestPriceList().size());
+        MerchandiseDto minBrand = result.getLowestPriceList().getFirst();
+        assertEquals("BrandA", minBrand.getBrandName());
+        assertEquals(format.format(10000), minBrand.getPrice());
+
+        // 최고가 상품 검증
+        assertEquals(1, result.getMaxPriceList().size());
+        MerchandiseDto maxBrand = result.getMaxPriceList().getFirst();
+        assertEquals("BrandB", maxBrand.getBrandName());
+        assertEquals(format.format(20000), maxBrand.getPrice());
+
+        verify(merchandiseRepository, times(1))
+                .findTopByCategory_NameOrderByPriceAsc(categoryName);
+        verify(merchandiseRepository, times(1))
+                .findTopByCategory_NameOrderByPriceDesc(categoryName);
+
+    }
+
+    private Merchandise createMerchandise(String categoryName, String brandName, Long price) {
+        Brand brand = new Brand();
+        brand.setName(brandName);
+
+        Category category = new Category();
+        category.setName(categoryName);
+
+        Merchandise merchandise = new Merchandise();
+        merchandise.setPrice(price);
+        merchandise.setBrand(brand);
+        merchandise.setCategory(category);
+
+        return merchandise;
+    }
+
 }

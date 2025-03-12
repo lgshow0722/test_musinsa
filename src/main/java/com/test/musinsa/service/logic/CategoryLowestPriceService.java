@@ -18,7 +18,7 @@ public class CategoryLowestPriceService extends AbstractService<Question1Dto> {
     private final MerchandiseRepository merchandiseRepository;
 
     @Override
-    protected Question1Dto executeCore() {
+    protected Question1Dto executeCore(Object... params) {
         // 각 카테고리별 최저가 상품을 DB에서 가져옴 ( nativeQuery 사용 )
         List<Merchandise> lowestPriceMerchandises = merchandiseRepository.findLowestPricePerCategory();
 

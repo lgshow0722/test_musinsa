@@ -22,7 +22,7 @@ public class BrandLowestPriceService extends AbstractService<Question2Dto> {
 
 
     @Override
-    protected Question2Dto executeCore() {
+    protected Question2Dto executeCore(Object... params) {
 
         // DB에서 카테고리별 브랜드 최저가 데이터를 조회
         List<Object[]> lowestMerchandiseList = merchandiseRepository.findLowestPricePerCategoryByBrand();

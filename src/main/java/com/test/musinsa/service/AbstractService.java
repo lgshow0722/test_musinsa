@@ -11,11 +11,11 @@ public abstract class AbstractService<T> {
     protected final NumberFormat format = NumberFormat.getNumberInstance();
 
     // 공통 로직: 예외 처리 래핑
-    public T executeService() {
-        return ExceptionHandlerUtil.wrapWithExceptionHandling(this::executeCore);
+    public T executeService(Object... params) {
+        return ExceptionHandlerUtil.wrapWithExceptionHandling(() -> executeCore(params));
     }
 
     // 하위 클래스가 구현해야 할 비즈니스 로직
-    protected abstract T executeCore();
+    protected abstract T executeCore(Object... params);
 
 }
