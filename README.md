@@ -41,8 +41,8 @@
     * 클래스명 : ResponseUtil (api > response > ResponseUtil)
     * 케이스 : 성공 / 성공+데이터 / 성공+메시지 / 실패
   * 공통 Exception Handler 유틸을 생성한다.
-    * 클래스명 : ExceptionHandlerUtil (api > response > ExceptionHandlerUtil)
-    * ControllerAdvice 어노테이션과 ExceptionHandler 어노테이션을 사용하여 전역 Exception을 대응한다.
+    * 클래스명 : ExceptionHandlerUtil (api > response > ExceptionHandlerUtil > wrapWithExceptionHandling)
+    * 서비스 내에서 wrapWithExceptionHandling를 래핑하여 에러핸들링에 대해 추상화함.
     * 본 과제에서는 400 / 404 / 500 에러를 대응한다.
       * 400 : Bad_Request / 밸리데이션에 의한 오류
       * 404 : Not_Found / 페이지 없음
@@ -55,8 +55,6 @@
 
 * 상세 설계
   * 해당 단계는 각 API별 규격 및 표준 응답을 생성합니다.
-  * request Body JSON의 예시는 resources/static 에 작성한다.
-  * favicon.ico의 경우 configuration 설정을 통해 로그에서 제거 할 수 있으나, 다른 목적이 필요하지 않아 무시함.
   * API 명세 (기본주소 : /project)
     * 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
       * API : /cate/lowest-price

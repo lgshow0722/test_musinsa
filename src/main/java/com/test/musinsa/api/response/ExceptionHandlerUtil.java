@@ -1,30 +1,28 @@
 package com.test.musinsa.api.response;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
-
-@ControllerAdvice
 public class ExceptionHandlerUtil {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<Void>> handleAllException(Exception exception) {
-        return handleException(exception);
-    }
+    private static final GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 
-    public static ResponseEntity<ApiResponse<Void>> handleException(Exception exception) {
-        if(exception instanceof IllegalArgumentException) {
-            // 400 에러
-            return ResponseUtil.error(HttpStatus.BAD_REQUEST, exception.getMessage());
-        } else if(exception instanceof NoHandlerFoundException || exception instanceof NoResourceFoundException) {
-            // 404 에러
-            return ResponseUtil.error(HttpStatus.NOT_FOUND, "페이지를 찾을 수 없습니다.");
-        } else {
-            // 500 에러
-            return ResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    /**
+     * 공통 예외 처리 로직을 래핑하는 메서드
+     * @param action 비즈니스 로직 실행
+     * @param <T> 실행결과 타입
+     * @return 비즈니스 로직 실행 결과
+     */
+    public static <T> T wrapWithExceptionHandling(ExceptionHandler<T> action) {
+        try {
+            return action.execute();
+        } catch (Exception e) {
+            exceptionHandler.handleException(e);
+            throw new IllegalArgumentException("데이터 처리에 실패했습니다.", e);
         }
     }
+
+    // 커스텀 함수형 인터페이스
+    @FunctionalInterface
+    public interface ExceptionHandler<T> {
+        T execute() throws Exception;
+    }
+
 }
