@@ -16,6 +16,10 @@ import com.test.musinsa.service.calcurate.BrandLowestPriceReadService;
 import com.test.musinsa.service.calcurate.CategoryLowestPriceReadService;
 import com.test.musinsa.service.transaction.BrandTransactionService;
 import com.test.musinsa.service.transaction.MerchandiseTransactionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/project")
 @RequiredArgsConstructor
+@Tag(name = "과제 컨트롤러")
 public class ProjectController {
 
     private final CategoryLowestPriceReadService categoryLowestPriceService;
@@ -35,6 +40,7 @@ public class ProjectController {
 
     // 1. 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
     @GetMapping("/cate/lowest-price")
+    @Operation(summary = "카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API")
     public ResponseEntity<ApiResponse<Question1Dto>> cateLowestPrice() {
 
         Question1Dto result = categoryLowestPriceService.executeService();
@@ -44,6 +50,7 @@ public class ProjectController {
 
     // 2. 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API
     @GetMapping("/brand/lowest-price")
+    @Operation(summary = "단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API")
     public ResponseEntity<ApiResponse<Question2Dto>> brandLowestPrice() {
 
         Question2Dto result = brandLowestPriceService.executeService();
@@ -53,6 +60,7 @@ public class ProjectController {
 
     // 3. 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API
     @GetMapping("/cate/brand-price")
+    @Operation(summary = "카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API")
     public ResponseEntity<ApiResponse<Question3Dto>> cateBrandPrice(@RequestParam String categoryName) {
 
         Question3Dto result = categoryBrandPriceService.executeService(categoryName);
@@ -62,6 +70,10 @@ public class ProjectController {
 
     // 4. 브랜드 추가 API
     @PostMapping("/brand/add")
+    @Operation(summary = "브랜드 추가 API")
+    @Parameters({
+        @Parameter(name = "brandName", description = "브랜드명", example = "A", required = true)
+    })
     public ResponseEntity<ApiResponse<Void>> addBrand(@RequestParam String brandName) {
 
         Brand brand = brandTransactionService.create(new BrandDto(brandName));
@@ -75,6 +87,7 @@ public class ProjectController {
 
     // 5. 브랜드 수정 API
     @PutMapping("/brand/mod")
+    @Operation(summary = "브랜드 수정 API")
     public ResponseEntity<ApiResponse<Void>> modBrand(@RequestBody BrandUpdateDto dto) {
 
         Brand brand = brandTransactionService.update(dto.getId(), new BrandDto(dto.getBrandName()));
@@ -88,6 +101,10 @@ public class ProjectController {
 
     // 6. 브랜드 삭제 API
     @DeleteMapping("/brand/del")
+    @Operation(summary = "브랜드 삭제 API")
+    @Parameters({
+        @Parameter(name = "id", description = "브랜드ID", example = "1", required = true)
+    })
     public ResponseEntity<ApiResponse<Void>> delBrand(@RequestParam Integer id) {
 
         brandTransactionService.delete(id);
@@ -97,6 +114,7 @@ public class ProjectController {
 
     // 7. 상품 추가 API
     @PostMapping("/merchandise/add")
+    @Operation(summary = "상품 추가 API")
     public ResponseEntity<ApiResponse<Void>> addMerchandise(@RequestBody MerchandiseDto dto) {
 
         Merchandise merchandise = merchandiseTransactionService.create(dto);
@@ -110,6 +128,7 @@ public class ProjectController {
 
     // 8. 상품 수정 API
     @PutMapping("/merchandise/mod")
+    @Operation(summary = "상품 수정 API")
     public ResponseEntity<ApiResponse<Void>> modMerchandise(@RequestBody MerchandiseUpdateDto dto) {
 
         Merchandise merchandise = merchandiseTransactionService.update(dto.getId(), new MerchandiseDto(dto.getCategoryId(), dto.getBrandId(), dto.getPrice()));
@@ -124,6 +143,10 @@ public class ProjectController {
 
     // 9. 상품 삭제 API
     @DeleteMapping("/merchandise/del")
+    @Operation(summary = "상품 삭제 API")
+    @Parameters({
+            @Parameter(name = "id", description = "상품ID", example = "1", required = true)
+    })
     public ResponseEntity<ApiResponse<Void>> delMerchandise(@RequestParam Integer id) {
 
         merchandiseTransactionService.delete(id);

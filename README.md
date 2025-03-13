@@ -15,6 +15,7 @@
       * repository : jpa, entity 설정
       * dto : json request/response 객체
       * event : 별도 이벤트 수신
+      * config : 스웨거 설정
     * DB
       * H2 Embedded DB를 활용
       * 해당 과제에는 3개의 테이블을 활용하고자 한다.
@@ -133,3 +134,4 @@
 * 추가 고려 사항
   * 각 API가 작동하는 프론트엔드 페이지 작성
     * 단일 프로젝트 임을 감안하여, Thymeleaf 라이브러리 고려
+    * -> 프론트엔드 페이지의 역할을 Swagger로 대체함
