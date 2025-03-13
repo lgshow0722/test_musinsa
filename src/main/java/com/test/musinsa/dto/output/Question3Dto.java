@@ -1,7 +1,6 @@
 package com.test.musinsa.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.test.musinsa.dto.base.MerchandiseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,8 +14,8 @@ public class Question3Dto {
     private String categoryName;
 
     @JsonProperty("최저가")
-    private List<MerchandiseDto> lowestPriceList;
+    private List<MerchandiseOutputDto> lowestPriceList;
 
     @JsonProperty("최고가")
-    private List<MerchandiseDto> maxPriceList;
+    private List<MerchandiseOutputDto> maxPriceList;
 }

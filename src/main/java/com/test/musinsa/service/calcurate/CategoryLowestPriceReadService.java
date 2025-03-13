@@ -1,6 +1,6 @@
 package com.test.musinsa.service.calcurate;
 
-import com.test.musinsa.dto.base.MerchandiseDto;
+import com.test.musinsa.dto.output.MerchandiseOutputDto;
 import com.test.musinsa.dto.output.Question1Dto;
 import com.test.musinsa.repository.entity.Merchandise;
 import com.test.musinsa.repository.MerchandiseRepository;
@@ -28,22 +28,22 @@ public class CategoryLowestPriceReadService extends AbstractReadService<Question
     // 비지니스 로직
     private Question1Dto calculate(List<Merchandise> lowestPriceMerchandises) {
         // 총액이 추가로 필요하여 stream으로 처리함
-        List<MerchandiseDto> merchandiseDtoList = new ArrayList<>();
+        List<MerchandiseOutputDto> merchandiseOutputDtoList = new ArrayList<>();
         long totalPrice = lowestPriceMerchandises.stream()
                 .map(m -> {
                     // Merchandise -> MerchandiseDto로 변환하여 merchandiseDtoList에 추가
-                    MerchandiseDto dto = new MerchandiseDto(
+                    MerchandiseOutputDto dto = new MerchandiseOutputDto(
                             m.getCategory().getName(),
                             m.getBrand().getName(),
                             format.format(m.getPrice())
                     );
-                    merchandiseDtoList.add(dto);
+                    merchandiseOutputDtoList.add(dto);
                     return m.getPrice();
                 })
                 .mapToLong(Long::longValue)
                 .sum(); // 총액
 
         // Question1Dto 저장하여 리턴
-        return new Question1Dto(merchandiseDtoList, format.format(totalPrice));
+        return new Question1Dto(merchandiseOutputDtoList, format.format(totalPrice));
     }
 }

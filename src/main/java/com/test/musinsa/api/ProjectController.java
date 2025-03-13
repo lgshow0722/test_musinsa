@@ -3,15 +3,18 @@ package com.test.musinsa.api;
 import com.test.musinsa.api.response.ApiResponse;
 import com.test.musinsa.api.response.ResponseUtil;
 import com.test.musinsa.dto.base.BrandDto;
+import com.test.musinsa.dto.base.MerchandiseDto;
 import com.test.musinsa.dto.input.BrandUpdateDto;
 import com.test.musinsa.dto.output.Question1Dto;
 import com.test.musinsa.dto.output.Question2Dto;
 import com.test.musinsa.dto.output.Question3Dto;
 import com.test.musinsa.repository.entity.Brand;
+import com.test.musinsa.repository.entity.Merchandise;
 import com.test.musinsa.service.calcurate.CategoryBrandPriceReadService;
 import com.test.musinsa.service.calcurate.BrandLowestPriceReadService;
 import com.test.musinsa.service.calcurate.CategoryLowestPriceReadService;
 import com.test.musinsa.service.transaction.BrandTransactionService;
+import com.test.musinsa.service.transaction.MerchandiseTransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,7 @@ public class ProjectController {
     private final BrandLowestPriceReadService brandLowestPriceService;
     private final CategoryBrandPriceReadService categoryBrandPriceService;
     private final BrandTransactionService brandTransactionService;
+    private final MerchandiseTransactionService merchandiseTransactionService;
 
     // 1. 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
     @GetMapping("/cate/lowest-price")
@@ -91,6 +95,17 @@ public class ProjectController {
     }
 
     // 7. 상품 추가 API
+    @PostMapping("/merchandise/add")
+    public ResponseEntity<ApiResponse<Void>> addMerchandise(@RequestBody MerchandiseDto dto) {
+
+        Merchandise merchandise = merchandiseTransactionService.create(dto);
+
+        if(merchandise != null) {
+            return ResponseUtil.success();
+        } else {
+            return ResponseUtil.error(HttpStatus.BAD_REQUEST,"상품 추가에 실패했습니다.");
+        }
+    }
 
     // 8. 상품 수정 API
 

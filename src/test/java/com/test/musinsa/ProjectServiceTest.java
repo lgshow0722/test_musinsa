@@ -1,6 +1,6 @@
 package com.test.musinsa;
 
-import com.test.musinsa.dto.base.MerchandiseDto;
+import com.test.musinsa.dto.output.MerchandiseOutputDto;
 import com.test.musinsa.dto.output.Question1Dto;
 import com.test.musinsa.dto.output.Question2Dto;
 import com.test.musinsa.dto.output.Question3Dto;
@@ -66,8 +66,8 @@ public class ProjectServiceTest {
 
         // Then
         assertNotNull(result, "null이 아니어야 합니다");
-        assertEquals(2, result.getMerchandiseDtoList().size(), "상품 목록의 크기가 2이어야 합니다.");
-        assertEquals("10,000", result.getMerchandiseDtoList().get(0).getPrice(), "첫 번째 상품의 가격이 형식화된 10,000이어야 합니다.");
+        assertEquals(2, result.getMerchandiseOutputDtoList().size(), "상품 목록의 크기가 2이어야 합니다.");
+        assertEquals("10,000", result.getMerchandiseOutputDtoList().get(0).getPrice(), "첫 번째 상품의 가격이 형식화된 10,000이어야 합니다.");
         assertEquals("30,000", result.getTotalPrice(), "총 가격은 30,000이어야 합니다.");
 
         // verify : 몇번 호출됬는지 검증
@@ -105,10 +105,10 @@ public class ProjectServiceTest {
         assertEquals("BrandA", result.getQuestion2Inner().getBrandName(), "최저가 브랜드 이름이 다릅니다.");
         assertEquals("300", result.getQuestion2Inner().getTotalPrice(), "최저가 브랜드의 총액이 잘못 계산되었습니다.");
 
-        List<MerchandiseDto> merchandiseDtoList = result.getQuestion2Inner().getMerchandiseDtoList();
-        assertEquals(2, merchandiseDtoList.size(), "MerchandiseDto 리스트의 크기가 다릅니다.");
-        assertEquals("Category 1", merchandiseDtoList.get(0).getCategoryName());
-        assertEquals("Category 2", merchandiseDtoList.get(1).getCategoryName());
+        List<MerchandiseOutputDto> merchandiseOutputDtoList = result.getQuestion2Inner().getMerchandiseOutputDtoList();
+        assertEquals(2, merchandiseOutputDtoList.size(), "MerchandiseDto 리스트의 크기가 다릅니다.");
+        assertEquals("Category 1", merchandiseOutputDtoList.get(0).getCategoryName());
+        assertEquals("Category 2", merchandiseOutputDtoList.get(1).getCategoryName());
 
     }
 
@@ -131,13 +131,13 @@ public class ProjectServiceTest {
         // 최저가 상품 검증
         assertEquals(categoryName, result.getCategoryName());
         assertEquals(1, result.getLowestPriceList().size());
-        MerchandiseDto minBrand = result.getLowestPriceList().getFirst();
+        MerchandiseOutputDto minBrand = result.getLowestPriceList().getFirst();
         assertEquals("BrandA", minBrand.getBrandName());
         assertEquals(format.format(10000), minBrand.getPrice());
 
         // 최고가 상품 검증
         assertEquals(1, result.getMaxPriceList().size());
-        MerchandiseDto maxBrand = result.getMaxPriceList().getFirst();
+        MerchandiseOutputDto maxBrand = result.getMaxPriceList().getFirst();
         assertEquals("BrandB", maxBrand.getBrandName());
         assertEquals(format.format(20000), maxBrand.getPrice());
 

@@ -1,5 +1,6 @@
 package com.test.musinsa.service;
 
+import com.test.musinsa.event.ActionType;
 import com.test.musinsa.event.BrandEvent;
 import jakarta.transaction.Transactional;
 
@@ -9,15 +10,15 @@ import java.util.Optional;
 public abstract class AbstractWriteService<T, D> {
 
     // 액션 유형(등록/수정)
-    private BrandEvent.ActionType currentActionType;
+    private ActionType currentActionType;
 
     // 현재 동작 타입 Getter
-    protected BrandEvent.ActionType getCurrentActionType() {
+    protected ActionType getCurrentActionType() {
         return currentActionType;
     }
 
     // 각 메서드에서 동작 타입 설정
-    protected void setCurrentActionType(BrandEvent.ActionType actionType) {
+    protected void setCurrentActionType(ActionType actionType) {
         this.currentActionType = actionType;
     }
 
@@ -30,10 +31,10 @@ public abstract class AbstractWriteService<T, D> {
     @Transactional
     public T create(D dto) {
 
-        setCurrentActionType(BrandEvent.ActionType.CREATE); // 등록 작업 세팅
+        setCurrentActionType(ActionType.CREATE); // 등록 작업 세팅
 
         // DTO 검증
-        validateForCreate(dto);
+        validate(dto);
 
         // DTO -> 엔티티 변환
         T entity = convertToEntity(dto);
@@ -53,14 +54,14 @@ public abstract class AbstractWriteService<T, D> {
     @Transactional
     public T update(int id, D dto) {
 
-        setCurrentActionType(BrandEvent.ActionType.UPDATE); // 수정 작업 세팅
+        setCurrentActionType(ActionType.UPDATE); // 수정 작업 세팅
 
         // 기존 엔티티를 조회
         T existingEntity = findEntityById(id).orElseThrow(() ->
                 new IllegalArgumentException("엔티티를 찾을 수 없습니다 : " + id));
 
         // DTO 검증
-        validateForUpdate(dto, existingEntity);
+        validate(dto);
 
         // DTO 데이터를 기존 엔티티에 병합
         T updatedEntity = mergeEntity(existingEntity, dto);
@@ -78,7 +79,7 @@ public abstract class AbstractWriteService<T, D> {
     @Transactional
     public void delete(int id) {
 
-        setCurrentActionType(BrandEvent.ActionType.DELETE); // 삭제 작업 세팅
+        setCurrentActionType(ActionType.DELETE); // 삭제 작업 세팅
 
         // 기존 엔티티를 조회
         T entity = findEntityById(id).orElseThrow(() ->
@@ -90,19 +91,11 @@ public abstract class AbstractWriteService<T, D> {
     }
 
     /**
-     * 데이터 등록 시의 검증 로직
+     * 데이터 등록 시의 검증 로직 ( 등록/수정 을 하나의 메서드로 처리한다. 필요 시 분리 )
      */
-    protected void validateForCreate(D dto) {
+    protected void validate(D dto) {
         // 기본 구현 없음. 필요할 경우 하위 클래스에서 추가 구현.
     }
-
-    /**
-     * 데이터 수정 시의 검증 로직
-     */
-    protected void validateForUpdate(D dto, T existingEntity) {
-        // 기본 구현 없음. 필요할 경우 하위 클래스에서 추가 구현.
-    }
-
 
     /**
      * DTO 데이터를 기반으로 엔티티를 생성

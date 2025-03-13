@@ -1,6 +1,6 @@
 package com.test.musinsa.service.calcurate;
 
-import com.test.musinsa.dto.base.MerchandiseDto;
+import com.test.musinsa.dto.output.MerchandiseOutputDto;
 import com.test.musinsa.dto.output.Question2Dto;
 import com.test.musinsa.repository.CategoryRepository;
 import com.test.musinsa.repository.MerchandiseRepository;
@@ -43,7 +43,7 @@ public class BrandLowestPriceReadService extends AbstractReadService<Question2Dt
 
         // 두가지의 해시맵을 활용하여 데이터를 비교,분석한다.
         Map<String, Long> brandPriceMap = new HashMap<>();
-        Map<String, List<MerchandiseDto>> merchandiseMap = new HashMap<>();
+        Map<String, List<MerchandiseOutputDto>> merchandiseMap = new HashMap<>();
 
         for (Object[] row : lowestMerchandiseList) {
             String categoryName = (String) row[0];
@@ -59,7 +59,7 @@ public class BrandLowestPriceReadService extends AbstractReadService<Question2Dt
             }
 
             // 브랜드명은 출력하지 않기 때문에 null로 처리함
-            merchandiseMap.get(brandName).add(new MerchandiseDto(categoryName, null, format.format(price)));
+            merchandiseMap.get(brandName).add(new MerchandiseOutputDto(categoryName, null, format.format(price)));
         }
 
         // 최저가 브랜드와 해당 브랜드의 가격을 뽑아낸다.

@@ -1,6 +1,7 @@
 package com.test.musinsa.service.transaction;
 
 import com.test.musinsa.dto.base.BrandDto;
+import com.test.musinsa.event.ActionType;
 import com.test.musinsa.event.BrandEvent;
 import com.test.musinsa.repository.BrandRepository;
 import com.test.musinsa.repository.entity.Brand;
@@ -19,15 +20,7 @@ public class BrandTransactionService extends AbstractWriteService<Brand, BrandDt
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    protected void validateForCreate(BrandDto dto) {
-        // 예외 처리 : 브랜드 이름 중복
-        if(repository.existsByName(dto.getBrandName())) {
-            throw new IllegalArgumentException("이미 존재하는 브랜드 이름입니다: " + dto.getBrandName());
-        }
-    }
-
-    @Override
-    protected void validateForUpdate(BrandDto dto, Brand entity) {
+    protected void validate(BrandDto dto) {
         // 예외 처리 : 브랜드 이름 중복
         if(repository.existsByName(dto.getBrandName())) {
             throw new IllegalArgumentException("이미 존재하는 브랜드 이름입니다: " + dto.getBrandName());
@@ -45,7 +38,7 @@ public class BrandTransactionService extends AbstractWriteService<Brand, BrandDt
     protected Brand saveEntity(Brand entity) {
         Brand saveBrand = repository.save(entity);
 
-        BrandEvent.ActionType actionType = getCurrentActionType();
+        ActionType actionType = getCurrentActionType();
 
         eventPublisher.publishEvent(new BrandEvent(saveBrand, actionType));
         return saveBrand;

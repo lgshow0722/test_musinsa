@@ -1,6 +1,6 @@
 package com.test.musinsa.service.calcurate;
 
-import com.test.musinsa.dto.base.MerchandiseDto;
+import com.test.musinsa.dto.output.MerchandiseOutputDto;
 import com.test.musinsa.dto.output.Question3Dto;
 import com.test.musinsa.repository.entity.Merchandise;
 import com.test.musinsa.repository.MerchandiseRepository;
@@ -22,7 +22,7 @@ public class CategoryBrandPriceReadService extends AbstractReadService<Question3
 
         // 최저가 브랜드 조회
         Merchandise minPriceMerchandise = merchandiseRepository.findTopByCategory_NameOrderByPriceAsc(categoryName);
-        MerchandiseDto minPriceBrand = new MerchandiseDto(
+        MerchandiseOutputDto minPriceBrand = new MerchandiseOutputDto(
                 null,
                 minPriceMerchandise.getBrand().getName(),
                 format.format(minPriceMerchandise.getPrice())
@@ -30,7 +30,7 @@ public class CategoryBrandPriceReadService extends AbstractReadService<Question3
 
         // 최고가 브랜드 조회
         Merchandise maxPriceMerchandise = merchandiseRepository.findTopByCategory_NameOrderByPriceDesc(categoryName);
-        MerchandiseDto maxPriceBrand = new MerchandiseDto(
+        MerchandiseOutputDto maxPriceBrand = new MerchandiseOutputDto(
                 null,
                 maxPriceMerchandise.getBrand().getName(),
                 format.format(maxPriceMerchandise.getPrice())

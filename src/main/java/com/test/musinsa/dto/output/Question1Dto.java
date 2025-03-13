@@ -1,7 +1,6 @@
 package com.test.musinsa.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.test.musinsa.dto.base.MerchandiseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class Question1Dto {
 
     @JsonProperty("카테고리별 데이터")
-    private List<MerchandiseDto> merchandiseDtoList;
+    private List<MerchandiseOutputDto> merchandiseOutputDtoList;
 
     @JsonProperty("총액")
     private String totalPrice;
