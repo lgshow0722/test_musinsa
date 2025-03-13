@@ -106,8 +106,27 @@
       * 설명
         * 브랜드를 삭제할 경우 하위 엔티티의 상품까지 같이 삭제처리를 한다. (CascadeType.REMOVE)
     * 상품 추가 API
+      * API : /merchandise/add
+      * Request Type : POST
+      * Parameter : MerchandiseDto (DTO)
+      * Return : 성공 or 실패 (ResponseUtil.success() or ResponseUtil.error())
+      * 설명
+        * 카테고리ID / 브랜드ID 가 존재하지 않을 경우 등록이 불가함
     * 상품 수정 API
+      * API : /merchandise/mod
+      * Request Type : PUT
+      * Parameter : MerchandiseUpdateDto (DTO)
+      * Return : 성공 or 실패 (ResponseUtil.success() or ResponseUtil.error())
+      * 설명
+        * 등록되지 않은 ID로 수정할 수 없음
+        * 카테고리ID / 브랜드ID 가 존재하지 않을 경우 등록이 불가함
     * 상품 삭제 API
+      * API : /merchandise/mel
+      * Request Type : DELETE
+      * Parameter : id (Integer)
+      * Return : 성공 or 실패 (ResponseUtil.success() or ResponseUtil.error())
+      * 설명
+        * 브랜드 및 카테고리 엔티티에는 영향을 주지 않음
   * 브랜드 및 상품을 추가 / 업데이트 / 삭제하는 API : 이 구문은 단일 API로 임의 병합하는 것보다 명시적으로 API를 구분하는 것이 유리하다고 판단하여 6개의 API로 해석함.
   * 출력되는 Dto의 네이밍은 크게 의미를 부여하지 않음
 

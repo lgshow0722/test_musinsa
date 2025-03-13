@@ -1,6 +1,7 @@
 package com.test.musinsa;
 
 import com.test.musinsa.dto.base.BrandDto;
+import com.test.musinsa.event.ActionType;
 import com.test.musinsa.event.BrandEvent;
 import com.test.musinsa.repository.BrandRepository;
 import com.test.musinsa.repository.entity.Brand;
@@ -37,8 +38,7 @@ public class BrandTransactionTest {
     @Test
     void createBrandTest() {
         // Given
-        BrandDto brandDto = new BrandDto();
-        brandDto.setBrandName("NewBrand");
+        BrandDto brandDto = new BrandDto("NewBrand");
 
         Brand brand = new Brand();
         brand.setName("NewBrand");
@@ -60,14 +60,13 @@ public class BrandTransactionTest {
         // Verify event publishing
         ArgumentCaptor<BrandEvent> eventCaptor = ArgumentCaptor.forClass(BrandEvent.class);
         verify(eventPublisher, times(1)).publishEvent(eventCaptor.capture());
-        assertEquals(BrandEvent.ActionType.CREATE, eventCaptor.getValue().getActionType());
+        assertEquals(ActionType.CREATE, eventCaptor.getValue().getActionType());
     }
 
     @Test
     void updateBrandTest() {
         // Given
-        BrandDto brandDto = new BrandDto();
-        brandDto.setBrandName("UpdatedBrand");
+        BrandDto brandDto = new BrandDto("UpdatedBrand");
 
         Brand existingBrand = new Brand();
         existingBrand.setId(1);
@@ -92,7 +91,7 @@ public class BrandTransactionTest {
         // Verify event publishing
         ArgumentCaptor<BrandEvent> eventCaptor = ArgumentCaptor.forClass(BrandEvent.class);
         verify(eventPublisher, times(1)).publishEvent(eventCaptor.capture());
-        assertEquals(BrandEvent.ActionType.UPDATE, eventCaptor.getValue().getActionType());
+        assertEquals(ActionType.UPDATE, eventCaptor.getValue().getActionType());
     }
 
     @Test
@@ -115,7 +114,7 @@ public class BrandTransactionTest {
         // Verify event publishing
         ArgumentCaptor<BrandEvent> eventCaptor = ArgumentCaptor.forClass(BrandEvent.class);
         verify(eventPublisher, times(1)).publishEvent(eventCaptor.capture());
-        assertEquals(BrandEvent.ActionType.DELETE, eventCaptor.getValue().getActionType());
+        assertEquals(ActionType.DELETE, eventCaptor.getValue().getActionType());
     }
 
 
