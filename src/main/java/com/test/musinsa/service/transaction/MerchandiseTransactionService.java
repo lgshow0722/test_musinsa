@@ -58,12 +58,15 @@ public class MerchandiseTransactionService extends AbstractWriteService<Merchand
 
     @Override
     protected Optional<Merchandise> findEntityById(Object id) {
-        return Optional.empty();
+        return merchandiseRepository.findById((Integer) id);
     }
 
     @Override
     protected Merchandise mergeEntity(Merchandise existingEntity, MerchandiseDto dto) {
-        return null;
+        existingEntity.setCategory(getCategoryById(dto.getCategoryId()));
+        existingEntity.setBrand(getBrandById(dto.getBrandId()));
+        existingEntity.setPrice(dto.getPrice());
+        return existingEntity;
     }
 
     @Override

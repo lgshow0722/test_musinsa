@@ -5,6 +5,7 @@ import com.test.musinsa.api.response.ResponseUtil;
 import com.test.musinsa.dto.base.BrandDto;
 import com.test.musinsa.dto.base.MerchandiseDto;
 import com.test.musinsa.dto.input.BrandUpdateDto;
+import com.test.musinsa.dto.input.MerchandiseUpdateDto;
 import com.test.musinsa.dto.output.Question1Dto;
 import com.test.musinsa.dto.output.Question2Dto;
 import com.test.musinsa.dto.output.Question3Dto;
@@ -108,6 +109,18 @@ public class ProjectController {
     }
 
     // 8. 상품 수정 API
+    @PutMapping("/merchandise/mod")
+    public ResponseEntity<ApiResponse<Void>> modMerchandise(@RequestBody MerchandiseUpdateDto dto) {
+
+        Merchandise merchandise = merchandiseTransactionService.update(dto.getId(), new MerchandiseDto(dto.getCategoryId(), dto.getBrandId(), dto.getPrice()));
+
+        if(merchandise != null) {
+            return ResponseUtil.success();
+        } else {
+            return ResponseUtil.error(HttpStatus.BAD_REQUEST,"상품 수정에 실패했습니다.");
+        }
+
+    }
 
     // 9. 상품 삭제 API
 }

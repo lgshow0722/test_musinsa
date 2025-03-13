@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface MerchandiseRepository extends JpaRepository<Merchandise, Long> {
+public interface MerchandiseRepository extends JpaRepository<Merchandise, Integer> {
 
     // 카테고리 별 최저가 상품 조회
     @Query(value = """
