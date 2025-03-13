@@ -82,6 +82,13 @@ public class ProjectController {
     }
 
     // 6. 브랜드 삭제 API
+    @DeleteMapping("/brand/del")
+    public ResponseEntity<ApiResponse<Void>> delBrand(@RequestParam Integer id) {
+
+        brandTransactionService.delete(id);
+
+        return ResponseUtil.success(); // 로직 상 Exception이 발생할 경우 실패로 리턴
+    }
 
     // 7. 상품 추가 API
 

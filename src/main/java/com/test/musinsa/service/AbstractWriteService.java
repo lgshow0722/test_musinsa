@@ -53,7 +53,7 @@ public abstract class AbstractWriteService<T, D> {
     @Transactional
     public T update(int id, D dto) {
 
-        setCurrentActionType(BrandEvent.ActionType.UPDATE); // 등록 작업 세팅
+        setCurrentActionType(BrandEvent.ActionType.UPDATE); // 수정 작업 세팅
 
         // 기존 엔티티를 조회
         T existingEntity = findEntityById(id).orElseThrow(() ->
@@ -77,6 +77,15 @@ public abstract class AbstractWriteService<T, D> {
      */
     @Transactional
     public void delete(int id) {
+
+        setCurrentActionType(BrandEvent.ActionType.DELETE); // 삭제 작업 세팅
+
+        // 기존 엔티티를 조회
+        T entity = findEntityById(id).orElseThrow(() ->
+                new IllegalArgumentException("엔티티를 찾을 수 없습니다 : " + id));
+
+        // 엔티티 삭제 수행
+        deleteEntity(entity);
 
     }
 
@@ -121,5 +130,10 @@ public abstract class AbstractWriteService<T, D> {
      * @return 병합된 엔티티
      */
     protected abstract T mergeEntity(T existingEntity, D dto);
+
+    /**
+     * 하위 클래스에서 구현될 엔티티 삭제 추상 메서드
+     */
+    protected abstract void deleteEntity(T entity);
 
 }

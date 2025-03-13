@@ -99,6 +99,12 @@
         * 등록되지 않은 ID로 수정할 수 없음
         * 중복된 브랜드명의 경우 등록할 수 없음
     * 브랜드 삭제 API
+      * API : /brand/mel
+      * Request Type : DELETE
+      * Parameter : id (Integer)
+      * Return : 성공 or 실패 (ResponseUtil.success() or ResponseUtil.error())
+      * 설명
+        * 브랜드를 삭제할 경우 하위 엔티티의 상품까지 같이 삭제처리를 한다. (CascadeType.REMOVE)
     * 상품 추가 API
     * 상품 수정 API
     * 상품 삭제 API

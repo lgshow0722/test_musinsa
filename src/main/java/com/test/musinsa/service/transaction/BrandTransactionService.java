@@ -61,4 +61,9 @@ public class BrandTransactionService extends AbstractWriteService<Brand, BrandDt
         existingEntity.setName(dto.getBrandName());
         return existingEntity;
     }
+
+    @Override
+    protected void deleteEntity(Brand entity) {
+        repository.delete(entity);
+    }
 }
