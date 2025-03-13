@@ -58,5 +58,9 @@ public class BrandTransactionService extends AbstractWriteService<Brand, BrandDt
     @Override
     protected void deleteEntity(Brand entity) {
         repository.delete(entity);
+
+        ActionType actionType = getCurrentActionType();
+
+        eventPublisher.publishEvent(new BrandEvent(entity, actionType));
     }
 }

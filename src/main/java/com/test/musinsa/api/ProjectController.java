@@ -123,4 +123,11 @@ public class ProjectController {
     }
 
     // 9. 상품 삭제 API
+    @DeleteMapping("/merchandise/del")
+    public ResponseEntity<ApiResponse<Void>> delMerchandise(@RequestParam Integer id) {
+
+        merchandiseTransactionService.delete(id);
+
+        return ResponseUtil.success(); // 로직 상 Exception이 발생할 경우 실패로 리턴
+    }
 }
