@@ -66,6 +66,7 @@
     * 조회 관련 테스트 코드
       * CategoryRepositoryTest : DB 연결에 대한 테스트 코드
       * ProjectServiceTest : 조회 내용에 대한 테스트 코드
+    * 등록/수정/삭제 관련 테스트 코드
       * BrandTransactionTest : 브랜드 등록/수정/삭제에 대한 테스트 코드
       * MerchandiseTransactionTest : 상품 등록/수정/삭제에 대한 테스트 코드
   * API 명세 (기본주소 : /project)
