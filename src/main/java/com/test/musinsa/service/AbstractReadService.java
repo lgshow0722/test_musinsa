@@ -1,6 +1,7 @@
 package com.test.musinsa.service;
 
 import com.test.musinsa.api.response.ExceptionHandlerUtil;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.NumberFormat;
 
@@ -11,6 +12,7 @@ public abstract class AbstractReadService<T> {
     protected final NumberFormat format = NumberFormat.getNumberInstance();
 
     // 공통 로직: 예외 처리 래핑
+    @Transactional(readOnly = true)
     public T executeService(Object... params) {
         return ExceptionHandlerUtil.wrapWithExceptionHandling(() -> executeCore(params));
     }
