@@ -60,6 +60,13 @@
     * 조회용 추상클래스 : api > service > AbstractReadService
     * 쓰기용 추상클래스 : api > service > AbstractWriteService
   * 추가/수정/삭제 API의 경우 Spring Modulith 개념을 사용하여 확장 가능한 구조를 예측하여 대비함
+    * 메인 로직은 동기 이벤트로 처리하고, 이벤트 기반의 부가 기능들은 비동기 이벤트로 처리되도록 설계함
+  * 테스트 코드 설명
+    * 조회 관련 테스트 코드
+      * CategoryRepositoryTest : DB 연결에 대한 테스트 코드
+      * ProjectServiceTest : 조회 내용에 대한 테스트 코드
+      * BrandTransactionTest : 브랜드 등록/수정/삭제에 대한 테스트 코드
+      * MerchandiseTransactionTest : 상품 등록/수정/삭제에 대한 테스트 코드
   * API 명세 (기본주소 : /project)
     * 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
       * API : /cate/lowest-price
