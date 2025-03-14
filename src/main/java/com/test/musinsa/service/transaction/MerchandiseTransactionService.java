@@ -3,6 +3,7 @@ package com.test.musinsa.service.transaction;
 import com.test.musinsa.dto.base.MerchandiseDto;
 import com.test.musinsa.event.ActionType;
 import com.test.musinsa.event.BrandEvent;
+import com.test.musinsa.event.DeferredEvent;
 import com.test.musinsa.event.MerchandiseEvent;
 import com.test.musinsa.repository.BrandRepository;
 import com.test.musinsa.repository.CategoryRepository;
@@ -53,7 +54,7 @@ public class MerchandiseTransactionService extends AbstractWriteService<Merchand
 
         ActionType actionType = getCurrentActionType();
 
-        eventPublisher.publishEvent(new MerchandiseEvent(saveMerchandise, actionType));
+        eventPublisher.publishEvent(new DeferredEvent(new MerchandiseEvent(saveMerchandise, actionType)));
         return saveMerchandise;
     }
 
@@ -76,7 +77,7 @@ public class MerchandiseTransactionService extends AbstractWriteService<Merchand
 
         ActionType actionType = getCurrentActionType();
 
-        eventPublisher.publishEvent(new MerchandiseEvent(entity, actionType));
+        eventPublisher.publishEvent(new DeferredEvent(new MerchandiseEvent(entity, actionType)));
     }
 
     private Category getCategoryById(int categoryId) {

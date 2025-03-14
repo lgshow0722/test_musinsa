@@ -61,6 +61,7 @@
     * 쓰기용 추상클래스 : api > service > AbstractWriteService
   * 추가/수정/삭제 API의 경우 Spring Modulith 개념을 사용하여 확장 가능한 구조를 예측하여 대비함
     * 메인 로직은 동기 이벤트로 처리하고, 이벤트 기반의 부가 기능들은 비동기 이벤트로 처리되도록 설계함
+    * 롤백이 될 경우를 감안해 Deferred 레코드 클래스를 생성하고, 트랜잭션 종료 후에 이벤트를 처리하도록 유도함
   * 테스트 코드 설명
     * 조회 관련 테스트 코드
       * CategoryRepositoryTest : DB 연결에 대한 테스트 코드

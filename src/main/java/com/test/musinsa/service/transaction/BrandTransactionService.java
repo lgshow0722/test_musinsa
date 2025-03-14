@@ -3,6 +3,7 @@ package com.test.musinsa.service.transaction;
 import com.test.musinsa.dto.base.BrandDto;
 import com.test.musinsa.event.ActionType;
 import com.test.musinsa.event.BrandEvent;
+import com.test.musinsa.event.DeferredEvent;
 import com.test.musinsa.repository.BrandRepository;
 import com.test.musinsa.repository.entity.Brand;
 import com.test.musinsa.service.AbstractWriteService;
@@ -40,7 +41,7 @@ public class BrandTransactionService extends AbstractWriteService<Brand, BrandDt
 
         ActionType actionType = getCurrentActionType();
 
-        eventPublisher.publishEvent(new BrandEvent(saveBrand, actionType));
+        eventPublisher.publishEvent(new DeferredEvent(new BrandEvent(saveBrand, actionType)));
         return saveBrand;
     }
 
@@ -61,6 +62,6 @@ public class BrandTransactionService extends AbstractWriteService<Brand, BrandDt
 
         ActionType actionType = getCurrentActionType();
 
-        eventPublisher.publishEvent(new BrandEvent(entity, actionType));
+        eventPublisher.publishEvent(new DeferredEvent(new BrandEvent(entity, actionType)));
     }
 }
