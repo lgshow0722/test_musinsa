@@ -1,7 +1,6 @@
 package com.test.musinsa.service;
 
 import com.test.musinsa.event.ActionType;
-import com.test.musinsa.event.BrandEvent;
 import jakarta.transaction.Transactional;
 
 import java.util.Optional;

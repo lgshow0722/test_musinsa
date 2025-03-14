@@ -3,13 +3,14 @@ package com.test.musinsa.event;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 @Slf4j
 @Component
 public class ProjectEventListener {
 
-    @TransactionalEventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onBrandEvent(BrandEvent event) {
         log.info("브랜드 이벤트 수신: 브랜드 ID = {}, 브랜드 이름 = {}, 액션 유형 = {}",
                 event.getBrand().getId(), event.getBrand().getName(), event.getActionType());
@@ -29,7 +30,7 @@ public class ProjectEventListener {
         }
     }
 
-    @TransactionalEventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onMerchandiseEvent(MerchandiseEvent event) {
         log.info("상품 이벤트 수신: 상품 ID = {}, 카테고리 이름 = {}, 브랜드 이름 = {}, 가격 = {}, 액션 유형 = {}",
                 event.getMerchandise().getId(), event.getMerchandise().getCategory().getName(),
